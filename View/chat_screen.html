@@ -36,7 +36,7 @@
 
 
         <div class="container">
-            <div class=" col-lg-12">
+            <div class="col-lg-12">
                 <div class="chat-box-div">
                     <div class="chat-box-head">
                         INSPER CHAT
@@ -56,24 +56,17 @@
                     </div>
                     <div class="panel-body chat-box-main" id=chatwindow>
                         
-                        <div class="chat-box-right">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                        <div class="chat-box-name-right">
-                            <img src="./img/user.gif" alt="bootstrap Chat box user image" class="img-circle">
-                            - Romin Royeelin
-                        </div>
-                        <hr class="hr-clas">
+     
                     </div>
                     
                     <div class="chat-box-footer">
                     <form action =''>
                         <div class="input-group">
-                            
-                                <input type="text" class="form-control" id="input" placeholder="Enter Text Here...">
+
+                                <input type="text" class="form-control" id="name" placeholder="Insira seu nome aqui!">
+                                <input type="text" class="form-control" id="input" placeholder="Escreva sua mensagem aqui!">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-info">SEND</button>
+                                    <button class="btn btn-info">ENVIAR</button>
                                 </span>
                             
                         </div>
@@ -89,12 +82,17 @@
             var socket = io();
             $('form').submit(function(){
                 socket.emit('chat message', $('#input').val());
+                socket.emit('name', $('#name').val());
                 $('#input').val('');
                 return false;
             });
 
             socket.on('chat message', function(msg){
-            document.getElementById('chatwindow').innerHTML += '<div class="chat-box-left">' + msg + '</div><div class="chat-box-name-left"><img src="./img/user.png" alt="bootstrap Chat box user image" class="img-circle"> -  Justine Goliyad</div><hr class="hr-clas">';
+            document.getElementById('chatwindow').innerHTML += '<div class="chat-box-left">' + msg + '</div>';
+            });
+
+            socket.on('name', function(msg){
+            document.getElementById('chatwindow').innerHTML += '<div class="chat-box-name-left"><img src="./img/download.png" alt="bootstrap Chat box user image" class="img-circle"> - ' + msg + '</div><hr class="hr-clas">';
             });
 
         </script>
